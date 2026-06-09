@@ -1,0 +1,10 @@
+# Created at 2026-06-08T20:57:05.662
+Boot Manifest-JAR contains absolute paths in classpath 'D:\Luis Beltran\Development\Maestria_Ingenieria_Software\TestingSoftware\InventoryTesting\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+
+# Created at 2026-06-08T20:58:11.617
+Boot Manifest-JAR contains absolute paths in classpath 'D:\Luis Beltran\Development\Maestria_Ingenieria_Software\TestingSoftware\InventoryTesting\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

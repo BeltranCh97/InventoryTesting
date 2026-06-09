@@ -1,0 +1,11 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+InventorySystem,edu.unisabana.proyecto.application,LocationService,0,54,0,0,0,13,0,7,0,7
+InventorySystem,edu.unisabana.proyecto.application,CategoryService,0,54,0,0,0,13,0,7,0,7
+InventorySystem,edu.unisabana.proyecto.application,ProductService,0,70,0,0,0,17,0,7,0,7
+InventorySystem,edu.unisabana.proyecto.infrastructure,ProductRepositoryAdapter,0,80,0,0,0,26,0,7,0,7
+InventorySystem,edu.unisabana.proyecto.infrastructure,LocationRepositoryAdapter,0,64,0,0,0,18,0,7,0,7
+InventorySystem,edu.unisabana.proyecto.infrastructure,CategoryRepositoryAdapter,0,64,0,0,0,18,0,7,0,7
+InventorySystem,edu.unisabana.proyecto,InventoryApplication,5,3,0,0,2,1,1,1,1,1
+InventorySystem,edu.unisabana.proyecto.delivery.rest,ProductController,0,47,0,0,0,10,0,7,0,7
+InventorySystem,edu.unisabana.proyecto.delivery.rest,CategoryController,0,47,0,0,0,10,0,7,0,7
+InventorySystem,edu.unisabana.proyecto.delivery.rest,LocationController,0,47,0,0,0,10,0,7,0,7

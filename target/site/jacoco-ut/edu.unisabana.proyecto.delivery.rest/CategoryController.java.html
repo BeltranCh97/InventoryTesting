@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CategoryController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">InventorySystem</a> &gt; <a href="index.source.html" class="el_package">edu.unisabana.proyecto.delivery.rest</a> &gt; <span class="el_source">CategoryController.java</span></div><h1>CategoryController.java</h1><pre class="source lang-java linenums">package edu.unisabana.proyecto.delivery.rest;
+
+import edu.unisabana.proyecto.application.CategoryService;
+import edu.unisabana.proyecto.domain.Category;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/api/categories&quot;)
+public class CategoryController {
+
+    private final CategoryService categoryService;
+
+<span class="fc" id="L17">    public CategoryController(CategoryService categoryService) {</span>
+<span class="fc" id="L18">        this.categoryService = categoryService;</span>
+<span class="fc" id="L19">    }</span>
+
+    @PostMapping
+    public ResponseEntity&lt;Category&gt; createCategory(@RequestBody Category category) {
+<span class="fc" id="L23">        return new ResponseEntity&lt;&gt;(categoryService.createCategory(category), HttpStatus.CREATED);</span>
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Category&gt; getCategory(@PathVariable Long id) {
+<span class="fc" id="L28">        return ResponseEntity.ok(categoryService.getCategory(id));</span>
+    }
+
+    @GetMapping
+    public ResponseEntity&lt;List&lt;Category&gt;&gt; getAllCategories() {
+<span class="fc" id="L33">        return ResponseEntity.ok(categoryService.getAllCategories());</span>
+    }
+
+    @PutMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Category&gt; updateCategory(@PathVariable Long id, @RequestBody Category category) {
+<span class="fc" id="L38">        return ResponseEntity.ok(categoryService.updateCategory(id, category));</span>
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Void&gt; deleteCategory(@PathVariable Long id) {
+<span class="fc" id="L43">        categoryService.deleteCategory(id);</span>
+<span class="fc" id="L44">        return ResponseEntity.noContent().build();</span>
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity&lt;String&gt; handleRuntimeException(RuntimeException ex) {
+<span class="fc" id="L49">        return new ResponseEntity&lt;&gt;(ex.getMessage(), HttpStatus.NOT_FOUND);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

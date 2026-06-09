@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: edu.unisabana.proyecto.unit.CategoryControllerUnitTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.40 s -- in edu.unisabana.proyecto.unit.CategoryControllerUnitTest
