@@ -263,3 +263,18 @@ Probar métodos autogenerados como getters, setters, `equals()`, `hashCode()` y 
 *   Se crearon suites de pruebas unitarias específicas ([DomainModelsTest](file:///d:/Luis%20Beltran/Development/Maestria_Ingenieria_Software/TestingSoftware/InventoryTesting/src/test/java/edu/unisabana/proyecto/unit/DomainModelsTest.java) y [EntityModelsTest](file:///d:/Luis%20Beltran/Development/Maestria_Ingenieria_Software/TestingSoftware/InventoryTesting/src/test/java/edu/unisabana/proyecto/unit/EntityModelsTest.java)) para comprobar constructores adicionales e instanciaciones.
 *   Se completaron los métodos faltantes en pruebas de adaptadores (`findAll`, `deleteById`) y de controladores REST, logrando cubrir el **100%** de las instrucciones analizables de la aplicación.
 
+---
+
+## 9. Índice de Documentación Centralizada
+
+A continuación se listan los documentos adicionales relacionados con el proyecto, centralizados para facilitar su acceso:
+
+*   **[Inicio / Home](./wiki/Home.md)**: Descripción del dominio, diagrama de arquitectura e información del equipo.
+*   **[Pruebas Unitarias](./wiki/Pruebas_Integracion.md)**: Nota: el nombre del archivo es Integración pero corresponde al enfoque documentado. *(Por favor revisar archivos específicos como [Pruebas de Sistema](./wiki/Pruebas_Sistema.md) y [Pruebas de Rendimiento](./wiki/Pruebas_Rendimiento.md) para más detalles).*
+*   **[Resultados de Cobertura](./wiki/Cobertura_Resultados.md)**: Evidencias y métricas de la cobertura de código.
+*   **[Registro de Defectos](./wiki/Registro_Defectos.md)**: Listado de defectos encontrados, incluyendo severidad, prioridad y estado.
+*   **[Defectos de Integración](./wiki/defectos_integracion.md)**: Detalles sobre errores específicos identificados durante las pruebas de integración.
+*   **[Otros Defectos (Raíz)](./defectos.md)**: Notas y registros adicionales de defectos a nivel general.
+*   **[Conclusiones](./wiki/Conclusiones.md)**: Reflexiones finales, análisis de resultados y mejoras propuestas.
+
+

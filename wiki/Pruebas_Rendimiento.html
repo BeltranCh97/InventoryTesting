@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Pruebas de Carga y Rendimiento - Inventory System</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="pruebas-de-carga-y-rendimiento---inventory-system">Pruebas de Carga y Rendimiento - Inventory System</h1>
+<h2 id="1-dominio-del-sistema-y-objetivos-de-rendimiento">1. Dominio del Sistema y Objetivos de Rendimiento</h2>
+<p>El sistema <strong>Inventory Testing</strong> maneja el inventario mediante la gestión de Productos, Categorías y Ubicaciones.
+El endpoint crítico bajo prueba es la creación de productos (<code>POST /api/products</code>), dado que se espera que las integraciones masivas (ej. sincronización de catálogos) generen altos volúmenes de tráfico concurrente.</p>
+<p><strong>Objetivo de las pruebas:</strong>
+Garantizar que el sistema es capaz de absorber un flujo masivo de creación de productos (hasta 600 usuarios concurrentes en escenarios de estrés) cumpliendo con los Acuerdos de Nivel de Servicio (SLA) establecidos y evitando la degradación o fallos (fugas de memoria, deadlocks en base de datos).</p>
+<h2 id="2-tipos-de-pruebas-a-ejecutar">2. Tipos de Pruebas a Ejecutar</h2>
+<table>
+<thead>
+<tr>
+<th>Prueba</th>
+<th>Propósito</th>
+<th>Configuración k6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Baseline</strong></td>
+<td>Establecer línea base de latencia y throughput bajo carga moderada y controlada.</td>
+<td>Rampa hasta 50 VUs, duración de 5 minutos.</td>
+</tr>
+<tr>
+<td><strong>Carga (Load)</strong></td>
+<td>Validar comportamiento bajo tráfico sostenido en niveles esperados.</td>
+<td>Rampa y sostenimiento en 200 VUs, duración total de 20 minutos.</td>
+</tr>
+<tr>
+<td><strong>Estrés (Stress)</strong></td>
+<td>Empujar los límites del sistema para descubrir puntos de quiebre.</td>
+<td>Rampa hasta 600 VUs, duración total de 20 minutos.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-modelos-de-carga">3. Modelos de Carga</h2>
+<p>Se utiliza un modelo <strong>Closed Model</strong> controlado por Usuarios Virtuales Concurrentes (VUs) en <code>k6</code> mediante el <em>executor</em> <code>ramping-vus</code>.
+El modelo simula que un número fijo de usuarios está creando productos constantemente con pausas de 1 segundo (think time).</p>
+<h2 id="4-plan-de-pruebas-sla--slo-escenarios-y-ambiente">4. Plan de Pruebas: SLA / SLO, Escenarios y Ambiente</h2>
+<ul>
+<li><strong>Ambiente:</strong> Servidor Spring Boot en puerto 8080.</li>
+<li><strong>Riesgos:</strong> Pool de conexiones a base de datos (HikariCP) saturado, degradación de memoria por acumulación de objetos (Heap Exhaustion).</li>
+<li><strong>SLO Acordados (Umbrales de k6):</strong>
+<ul>
+<li><strong>Latencia p95:</strong> ≤ 300 ms</li>
+<li><strong>Latencia p99:</strong> ≤ 800 ms</li>
+<li><strong>Tasa de Error:</strong> &lt; 1%</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-ejecución-en-ci-y-local">5. Ejecución en CI y Local</h2>
+<p>El script de pruebas es programable con JavaScript (<code>k6/http</code>) utilizando variables parametrizadas y datos dinámicos inyectados desde <code>product.csv</code> (5000 registros).
+La ejecución está automatizada en <strong>GitHub Actions</strong> (<code>ci.yml</code>) mediante el job <code>perf_tests</code> que falla la compilación si los SLO no se cumplen.</p>
+<pre><code class="language-bash"><span class="hljs-comment"># Ejemplo de ejecución manual del Baseline:</span>
+k6 run perf/scripts/register_product_k6.js --out json=perf/results/baseline.json
+</code></pre>
+<h2 id="6-resultados-y-análisis">6. Resultados y Análisis</h2>
+<p><em>(Nota: Los artefactos JSON detallados se encuentran en <code>perf/results/</code>)</em></p>
+<p>Al ejecutar las corridas iniciales a nivel local, se valida que la latencia base p95 de las peticiones es sumamente rápida para creaciones, pero a mayor concurrencia empiezan a formarse cuellos de botella al nivel de persistencia de datos (H2/DB).</p>
+<h3 id="matriz-de-pruebas-de-rendimiento">Matriz de Pruebas de Rendimiento</h3>
+<table>
+<thead>
+<tr>
+<th>Escenario</th>
+<th>Modelo</th>
+<th>Duración</th>
+<th>SLO</th>
+<th>Resultado</th>
+<th>Artefactos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Baseline</td>
+<td>50 VUs</td>
+<td>5 min</td>
+<td>p95&lt;300ms</td>
+<td>Cumple</td>
+<td><code>results/baseline.json</code></td>
+</tr>
+<tr>
+<td>Carga</td>
+<td>0→200 VUs</td>
+<td>20 min</td>
+<td>p95&lt;300ms</td>
+<td>Cumple (ajustado)</td>
+<td><code>results/load.json</code></td>
+</tr>
+<tr>
+<td>Estrés</td>
+<td>200→600 VUs</td>
+<td>20 min</td>
+<td>Error&lt;1%</td>
+<td>No Cumple (Timeout BD)</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-conclusiones-técnicas-y-mejoras">7. Conclusiones Técnicas y Mejoras</h2>
+<ul>
+<li><strong>Métrica más sensible:</strong> Latencia de base de datos debido a validaciones secuenciales y transaccionalidad.</li>
+<li><strong>Cuello de botella principal:</strong> Pool de conexiones. En 600 VUs, el sistema agota conexiones activas y aumenta el <code>Error Rate</code> por encima del 1% debido a timeouts.</li>
+<li><strong>Mejoras propuestas:</strong> Configurar el pool de HikariCP para soportar más concurrencia (<code>spring.datasource.hikari.maximum-pool-size</code>) e implementar procesamiento en lotes o asíncrono para creaciones masivas si el caso de negocio lo permite.</li>
+</ul>
+
+            
+            
+        </body>
+        </html>

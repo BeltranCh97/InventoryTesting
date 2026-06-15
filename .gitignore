@@ -37,3 +37,6 @@ build/
 
 ### Others ###
 *.log
+
+### K6 Performance Results ###
+perf/results/*.json
