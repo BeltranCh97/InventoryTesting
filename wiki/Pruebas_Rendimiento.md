@@ -36,8 +36,7 @@ k6 run perf/scripts/register_product_k6.js --out json=perf/results/baseline.json
 ```
 
 ## 6. Resultados y Análisis
-*(Nota: Los artefactos JSON detallados se encuentran en `perf/results/`)*
-
+> **Nota sobre Artefactos:** Los archivos JSON detallados de cada corrida se generan de forma local en la carpeta `perf/results/`. Sin embargo, no fueron subidos a este repositorio de GitHub debido a que el volumen masivo de peticiones en los escenarios (especialmente Carga, Estrés y Soak) genera archivos que superan ampliamente el límite de tamaño permitido por GitHub (> 100 MB).
 Al ejecutar las corridas iniciales a nivel local, se valida que la latencia base p95 de las peticiones es sumamente rápida para creaciones, pero a mayor concurrencia empiezan a formarse cuellos de botella al nivel de persistencia de datos (H2/DB).
 
 ### Matriz de Pruebas de Rendimiento
